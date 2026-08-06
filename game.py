@@ -57,7 +57,12 @@ class Game:
         options = webdriver.ChromeOptions()
         options.add_argument("--window-size=1920,1080")
         options.add_argument("--disable-infobars")
-        # options.add_argument("--headless")  # uncomment to run invisibly
+        options.add_argument("--headless=new")   # new headless mode, better GPU support
+        options.add_argument("--use-gl=egl")
+        options.add_argument("--enable-gpu")
+        options.add_argument("--disable-software-rasterizer")
+        options.add_argument("--remote-debugging-port=9222")
+        options.add_argument("--remote-debugging-address=0.0.0.0")
 
         browser_version = read_version_from_cmd(
             "/usr/sbin/chromium --version",
@@ -160,6 +165,9 @@ class Game:
 
         png = base64.b64decode(screenshot_data["data"])
 
+        # with open("debug_frame_raw.png", "wb") as f:
+        #     f.write(png)
+
         stream = BytesIO(png)
         frame = np.array(Image.open(stream))    
         frame = cv2.cvtColor(frame, cv2.COLOR_RGB2GRAY)
@@ -188,6 +196,10 @@ class Game:
             ).until(lambda _: element.click() or True)
         except selenium.common.exceptions.NoSuchElementException:
             pass
+
+        if self.driver.current_url != "https://survev.io/":
+            print("WARN: URL mismatch at", self.driver.current_url)
+            self.driver.get("https://survev.io/")
 
         for key in (ALL_KEYS):
             if key.value != "move":

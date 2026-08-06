@@ -52,7 +52,7 @@ def collect_rollout(game: Game, net: ActorCritic, obs: torch.Tensor, reset, get_
 
         # timing consistency
         diff = time.time() - start_time
-        if STEP_TIME - diff < -0.8:
+        if STEP_TIME - diff < -0.3:
             print(f"WARN: step took {-STEP_TIME + diff}s longer than STEP_TIME")
         elif STEP_TIME - diff < 0:
             pass
