@@ -73,7 +73,7 @@ class Game:
             service=Service(ChromeDriverManager(driver_version = browser_version).install()),
             options=options
         )
-        driver.get("https://survev.io")
+        driver.get("https://survev.io/")
 
         self.driver = driver
         self.actions = ActionChains(driver)
