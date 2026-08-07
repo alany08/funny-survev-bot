@@ -7,7 +7,7 @@ import time
 
 N_STEPS = 2048 # steps per rollout
 N_EPOCHS = 4 # passes over buffer per update
-BATCH_SIZE = 64 # minibatch size, used to be 64
+BATCH_SIZE = 256 # minibatch size, used to be 64
 GAMMA = 0.99 # discount factor
 GAE_LAMBDA = 0.95 # GAE smoothing
 CLIP_EPS = 0.2 # PPO clip range
