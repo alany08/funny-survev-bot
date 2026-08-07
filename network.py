@@ -33,7 +33,7 @@ class CNNBackbone(nn.Module):
 
     def _get_flat_size(self) -> int:
         with torch.no_grad():
-            dummy = torch.zeros(1, 4, 360, 640)
+            dummy = torch.zeros(1, 4, 360, 640, device=next(self.parameters()).device)
             return self.conv(dummy).flatten(1).shape[1]
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
